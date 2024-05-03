@@ -1,7 +1,5 @@
 {
-    "url": "https://t.me/mobifi_bot/mobifi",                        
-    "name": "Mobifi",                     
-    "iconUrl": "https://t.me/mobifi_bot/mobifi/public/eyes.jpg"
-  }
-  
-  
+  "url": "https://t.me/mobifi_bot/mobifi",
+  "name": "Mobifi",
+  "iconUrl": "https://t.me/mobifi_bot/mobifi/public/icon.jpg"
+}
