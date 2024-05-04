@@ -21,7 +21,7 @@ export const Settings = () => {
 //     const result = await tonConnectUI.sendTransaction(transaction);
 
 //     // you can use signed boc to find the transaction 
-//     const someTxData = await myAppExplorerService.getTransaction(result.boc);
+//     // const someTxData = await myAppExplorerService.getTransaction(result.boc);
 //     alert('Transaction was sent successfully', someTxData);
 // } catch (e) {
 //     console.error(e);
