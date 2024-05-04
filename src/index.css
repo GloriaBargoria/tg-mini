@@ -1,73 +1,107 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+/* @import "./custom-base-styles.css"; */
 
+@import "tailwindcss/components";
+/* @import url(); */
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss/utilities";
+/* @import "./custom-utilities.css"; */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html, body {
+    width: 100%;
+    margin: 0;
+    background-color: #071330;
+    color: aqua;
+    justify-content: center;
 }
 
-/* a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+*,
+*:before,
+*:after {
+  box-sizing: 'border-box';
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,
+h2,
+h3{
+  font-family: var(--font-fira-code);
+  margin: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+h4,
+h5,
+h6{
+  font-family: var(--font-poppins);
+  margin: 0;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+p,
+.p{
+  font-family: var(--font-poppins);
+}
+
+#nav-content {
+  animation: 1s appear;
+  margin: auto;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
   }
-  a:hover {
-    color: #747bff;
+  100% {
+    opacity: 1;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.nav-bg {
+  -webkit-backdrop-filter: blur(42px);
+  backdrop-filter: blur(42px);
+}
+
+.loading {
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.group {
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* ? NOTE: https://tailwindcss.com/docs/using-with-preprocessors#build-time-imports */
+/* @tailwind base;
+@tailwind components;
+@import "tailwindcss/components";
+@tailwind utilities; */
+
+@layer base {
+  body {
+    @apply font-bodyFont;
   }
-} */
+
+  p, a {
+    @apply text-white dark:text-white-dark;
+  }
+}
+@layer components {
+
+  .l-container {
+    @apply container mx-auto px-4 md:px-12;
+  }
+  .s-container {
+    @apply container mx-auto px-4 md:px-24 lg:px-40;
+  }
+
+}

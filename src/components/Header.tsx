@@ -5,9 +5,10 @@ const Header = () => {
     <nav className="flex justify-between text-red-500 w-screen">
       <div>
         <p>Mobifi Mini App</p>
+        <TonConnectButton />
       </div>
       <div>
-        <TonConnectButton />
+        
       </div>
     </nav>
   );

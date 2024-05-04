@@ -1,0 +1,1 @@
+// a custom hook for all GET requests using react query
