@@ -59,23 +59,23 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
     setModalOpen(!modalOpen);
   };
 
-  const onSubmit = async (data: GroupData) => {
-    setIsSubmitting(true);
-    await createGroupTransaction();
-    console.log("create", data);
+  // const onSubmit = async (data: GroupData) => {
+  //   setIsSubmitting(true);
+  //   await createGroupTransaction();
+  //   console.log("create", data);
 
-    try {
-      const response = await group.createChat(data);
-      console.log("response verify otp", response);
-      if (response?.status === 200) {
-        setIsSubmitting(false);
-      }
-    } catch (error) {
-      setIsSubmitting(false);
-      console.error("error sending transaction", error);
-      toggleModal();
-    }
-  };
+  //   try {
+  //     const response = await group.createChat(data);
+  //     console.log("response verify otp", response);
+  //     if (response?.status === 200) {
+  //       setIsSubmitting(false);
+  //     }
+  //   } catch (error) {
+  //     setIsSubmitting(false);
+  //     console.error("error sending transaction", error);
+  //     toggleModal();
+  //   }
+  // };
 
   return (
     <>
