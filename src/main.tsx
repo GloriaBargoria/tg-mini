@@ -25,22 +25,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           twaReturnUrl: "https://t.me/mobifi_bot/mobifi",
         }}
         // list of wallets in the connect wallet modal, in our case, we only need TON wallet
-        // exlude this parameter to list all wallets
-        walletsListConfiguration={{
-          includeWallets: [
-            {
-              appName: "tonwallet",
-              name: "TON Wallet",
-              imageUrl: "https://wallet.ton.org/assets/ui/qr-logo.png",
-              aboutUrl:
-                "https://chrome.google.com/webstore/detail/ton-wallet/nphplpgoakhhjchkkhmiggakijnkhfnd",
-              universalLink: "https://wallet.ton.org/ton-connect",
-              jsBridgeKey: "tonwallet",
-              bridgeUrl: "https://bridge.tonapi.io/bridge",
-              platforms: ["chrome", "android"],
-            },
-          ],
-        }}
       >
         <App />
         <ReactQueryDevtools initialIsOpen={false} />

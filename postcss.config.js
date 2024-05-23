@@ -1,6 +1,6 @@
-export const plugins = {
-    'postcss-import': {},
+export default {
+  plugins: {
     tailwindcss: {},
     autoprefixer: {},
-};
-  
+  },
+}
