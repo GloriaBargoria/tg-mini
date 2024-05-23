@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as schema from "../../utils/schema/groupSchema";
-import * as group from "../../network/groupRequestServices";
-import { GroupData } from "../../types/groupTypes";
+// import * as group from "../../network/groupRequestServices";
+// import { GroupData } from "../../types/groupTypes";
 import { TonConnectButton, useTonConnectUI } from "@tonconnect/ui-react";
-import Modal from "../shared/Modal";
 
 interface CreateProps {
   toggleCreate: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -52,12 +51,11 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
     }
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
+  // const toggleModal = () => {
+  //   setModalOpen(!modalOpen);
+  // };
 
   // const onSubmit = async (data: GroupData) => {
   //   setIsSubmitting(true);
@@ -138,7 +136,7 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
                     : "bg-primary"
                 }`}
               >
-                {isSubmitting ? (
+                {/* {isSubmitting ? (
                   <div className="flex items-center justify-center hover:bg-primary">
                     Creating...
                   </div>
@@ -146,7 +144,8 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
                   <div className="flex items-center justify-center ">
                     Create
                   </div>
-                )}
+                )} */}
+                Create
               </button>
             ) : (
               <div>
@@ -156,12 +155,6 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
             )}
           </div>
         </form>
-        <Modal modalOpen={modalOpen}>
-          <div>
-            <p className="text-xs">To create a group, you must first connect to a TON wallet</p>
-            <TonConnectButton />
-          </div>
-        </Modal>
       </div>
     </>
   );
