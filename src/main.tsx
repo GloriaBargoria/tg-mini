@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 
 // link to manifest file in project, make sure the url is exact
 // pass an exact 180 * 180px icon image
-const manifestUrl = "https://t.me/mobifi_bot/mobifi/tonconnect-manifest.json";
+const manifestUrl = "https://tg-mini.vercel.app/tonconnect-manifest.json";
 
 //background-color: #071330;
 
@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         manifestUrl={manifestUrl}
         actionsConfiguration={{
           // return strategy as a link to your TMA that will be only applied if the App is opened in TMA mode
-          twaReturnUrl: "https://t.me/mobifi_bot/mobifi/groups",
+          twaReturnUrl: "https://tg-mini.vercel.app/groups",
         }}
         // list of wallets in the connect wallet modal, in our case, we only need TON wallet
       >
