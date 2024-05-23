@@ -10,9 +10,9 @@ import { ToastContainer } from "react-toastify";
 // link to manifest file in project, make sure the url is exact
 // pass an exact 180 * 180px icon image
 const manifestUrl =
-  "https://GloriaBargoria.github.io/tg-mini/tonconnect-manifest.json";
+  "https://gloriabargoria.github.io/tg-mini/tonconnect-manifest.json";
 
-// https://GloriaBargoria.github.io/tg-mini"
+// https://gloriabargoria.github.io/tg-mini/"
 
 //background-color: #071330;
 
