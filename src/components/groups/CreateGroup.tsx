@@ -1,16 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import * as schema from "../../utils/schema/groupSchema";
-// import Modal from "../shared/Modal";
-import Payment from "../Payment/Payment";
 import * as group from "../../network/groupRequestServices";
-import GuestoOrder from "./GuestoOrder";
-// import { Spinner } from "../shared/Ui";
-import PaymentModal from "../shared/PaymentModal";
-import Modal from "../shared/Modal";
-import { useNavigate } from "react-router-dom";
+import { GroupData } from "../../types/groupTypes";
 
 const CreateGroup = () => {
   const {
@@ -18,80 +11,31 @@ const CreateGroup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema.verifySms),
+    resolver: yupResolver(schema.createChatSchema),
     defaultValues: {
-      phoneNumber: phoneNumber,
-      sms: "",
+      
     },
   });
 
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
-  const [paymentOpen, setPaymentOpen] = useState(false);
-  const [orderId, setOrderId] = useState("");
-  const [createOpen, setCreeateOpen] = useState(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [email, setEmail] = useState("");
 
-  const toggleCreate = () => {
-    setCreeateOpen(!createOpen);
-  };
 
-  const togglePayment = () => {
-    setPaymentOpen(!paymentOpen);
-  };
-
-  const handleSubmitJoin = async () => {
-    const data = { workshopId: id, quantity: 1, PhoneNumber: phoneNumber };
-    const token = localStorage.getItem("token");
-    const payload = { data: data, token: token };
+  const onSubmit = async (data: GroupData) => {
     setIsSubmitting(true);
-    if (product.cost > 0) {
-      try {
-        const response = await group.createChat(payload);
-        console.log("response join workshop", response);
-
-        if (response?.status == 200) {
-          setIsSubmitting(false);
-          setOrderId(response?.data);
-
-          togglePayment();
-        }
-      } catch (error) {
-        setIsSubmitting(false);
-        console.log(error);
-      }
-    } else {
-      togglePayment();
-    }
-  };
-
-
-  const onSubmit = async (data) => {
-    setIsVerifying(true);
     console.log("verify", data);
 
     try {
-      const response = await auth.verifyOtp(data);
+      const response = await group.createChat(data);
       console.log("response verify otp", response);
       if (response?.status === 200) {
-        setIsVerifying(false);
-        if (token) {
-          handleSubmitJoin();
-        } else {
-          handleJoinGuest();
-        }
+        setIsSubmitting(false);
+        
       }
-      closeModal;
     } catch (error) {
-      setIsVerifying(false);
-      console.error(error?.response);
-      if (error?.response?.status === 400) {
-        console.error(error?.response?.response?.status);
-        toast.error("You have entered an invalid OTP code. Enter code sent to your phone number")
-      }
+      setIsSubmitting(false);
+      console.error(error);
     }
   };
 
@@ -106,33 +50,17 @@ const CreateGroup = () => {
               Phone Number
             </label>
             <input
-              id="broadcast"
-              {...register("broadcast", { required: true, maxLength: 13 })}
+              id="title"
+              {...register("title", { required: true, maxLength: 13 })}
               className={`border border-silver-500 rounded-md py-2 pl-3 text-xs ${
-                errors.broadcast ? "border-red-600 focus:outline-red-600" : ""
+                errors.title ? "border-red-600 focus:outline-red-600" : ""
               }`}
               type="text"
               placeholder="OTP Code"
             />
-            {errors.broadcast && (
+            {errors.title && (
               <span className="text-red-600 text-xs mt-1">
-                {errors.broadcast.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col mb-5">
-            <input
-              id="sms"
-              {...register("sms", { required: true })}
-              className={`border border-silver-500 rounded-md py-2 pl-3 text-xs ${
-                errors.sms ? "border-red-600 focus:outline-red-600" : ""
-              }`}
-              type="text"
-              placeholder="OTP Code"
-            />
-            {errors.sms && (
-              <span className="text-red-600 text-xs mt-1">
-                {errors.sms?.message}
+                {errors.title.message}
               </span>
             )}
           </div>
@@ -161,18 +89,6 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
-      {createOpen && (
-        <Modal modalOpen={createOpen}>
-          <div>
-            <p>By clicking 'Create', you will be charged 5TON to create a group</p>
-            <p>Do you wish to continue</p>
-            <div>
-              <button>Cancel</button>
-              <button>Create</button>
-            </div>
-          </div>
-        </Modal>
-      )}
     </>
   );
 };

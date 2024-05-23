@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GroupData } from "../types/groupTypes";
 const PREFIX_API = import.meta.env.VITE_NEXT_APP_API_HOST_PREFIX_LOCAL || "http://localhost:5001";
 const endpoint = `${PREFIX_API}/telegram`;
 
@@ -16,10 +17,6 @@ interface DataType {
 type IdType = string;
 
 // create chat(group) interface
-interface GroupData {
-  users: string[];
-  title: string;
-}
 
 
 // get single group service
