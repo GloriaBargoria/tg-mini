@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Homepage from "./pages/Homepage";
 import SingleGroup from "./pages/SingleGroup";
 import './App.css'
+import Grouplist from "./pages/Grouplist";
 
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/products" element={<SingleGroup />} />
-        {/* <Route path="/about" element={<About />} /> */}
+        <Route path="/groups/:groupId" element={<SingleGroup />} />
+        <Route path="/groups" element={<Grouplist />} />
       </Routes>
     </div>
   );
