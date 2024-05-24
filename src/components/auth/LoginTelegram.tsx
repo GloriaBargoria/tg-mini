@@ -102,7 +102,7 @@ const LoginTelegram: React.FC = () => {
         </div>
       </form>
       <Modal modalOpen={modalOpen}>
-        <VerifyOtp />
+        <VerifyOtp toggleVerify={toggleModal} />
       </Modal>
     </div>
   );

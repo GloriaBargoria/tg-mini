@@ -6,7 +6,11 @@ import { OtpTypes } from "../../types/authTypes";
 import * as auth from "../../network/authRequestServices";
 import { useNavigate } from "react-router-dom";
 
-const VerifyOtp: React.FC = () => {
+interface CreateProps {
+  toggleVerify: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const VerifyOtp: React.FC<CreateProps>= ({toggleVerify}) => {
   const {
     register,
     handleSubmit,
@@ -15,34 +19,31 @@ const VerifyOtp: React.FC = () => {
     resolver: yupResolver(schema.verifyOtpSchema),
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const phoneNumber = localStorage.getItem("phoneNumber")
-  const phoneCodeHash = localStorage.getItem("phoneHash")
-
+  const phoneNumber = localStorage.getItem("phoneNumber");
+  const phoneCodeHash = localStorage.getItem("phoneHash");
 
   const onSubmit = async (data: OtpTypes) => {
     console.log("data", data);
     const requestBody = {
       ...data,
       phoneCodeHash,
-      phoneNumber
-    }
-    setIsSubmitting(true)
+      phoneNumber,
+    };
+    setIsSubmitting(true);
     try {
       const response = await auth.verifyOtp(requestBody);
       console.log("response login", response);
-      setIsSubmitting(false)
-      if(response?.status === 200){
-       navigate("/groups")
+      setIsSubmitting(false);
+      if (response?.status === 200) {
+        navigate("/groups");
       }
-      
-      
     } catch (error) {
       console.error("error login");
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
   return (
@@ -68,6 +69,14 @@ const VerifyOtp: React.FC = () => {
           )}
         </div>
         <div className="grid grid-cols-2 space-x-4">
+          <button
+            type="button"
+            name="button"
+            onClick={toggleVerify}
+            className={`flex items-center justify-center w-full  px-10 py-2 mb-2 font-semibold text-center text-black transition duration-200 ease-in shadow-md rounded-2xl `}
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             name="submit"
