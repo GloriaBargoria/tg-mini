@@ -1,14 +1,12 @@
 import React from "react";
 import { TonConnectButton } from "@tonconnect/ui-react";
-
-
+import LoginTelegram from "../components/auth/LoginTelegram";
 
 const Homepage: React.FC = () => {
-
   return (
-    <div className="flex justify-center items-center">
-     <TonConnectButton />
-     <p>TEST NEW DEPLOYMENT</p>
+    <div className="flex flex-col justify-center items-center">
+      <TonConnectButton />
+      <LoginTelegram />
     </div>
   );
 };

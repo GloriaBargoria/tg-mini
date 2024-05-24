@@ -2,9 +2,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as schema from "../../utils/schema/groupSchema";
-// import * as group from "../../network/groupRequestServices";
-// import { GroupData } from "../../types/groupTypes";
-import { TonConnectButton, useTonConnectUI } from "@tonconnect/ui-react";
+import * as group from "../../network/groupRequestServices";
+import { GroupData } from "../../types/groupTypes";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import { useState } from "react";
 
 interface CreateProps {
   toggleCreate: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -51,37 +52,31 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
     }
   };
 
-  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const toggleModal = () => {
-  //   setModalOpen(!modalOpen);
-  // };
+  const onSubmit = async (data: GroupData) => {
+    setIsSubmitting(true);
+    await createGroupTransaction();
+    console.log("create", data);
 
-  // const onSubmit = async (data: GroupData) => {
-  //   setIsSubmitting(true);
-  //   await createGroupTransaction();
-  //   console.log("create", data);
-
-  //   try {
-  //     const response = await group.createChat(data);
-  //     console.log("response verify otp", response);
-  //     if (response?.status === 200) {
-  //       setIsSubmitting(false);
-  //     }
-  //   } catch (error) {
-  //     setIsSubmitting(false);
-  //     console.error("error sending transaction", error);
-  //     toggleModal();
-  //   }
-  // };
+    try {
+      const response = await group.createChat(data);
+      console.log("response verify otp", response);
+      if (response?.status === 200) {
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      setIsSubmitting(false);
+      console.error("error sending transaction", error);
+    }
+  };
 
   return (
     <>
       <div>
         <h2>Create Group</h2>
-        {/* <TonConnectButton /> */}
         <form
-          onSubmit={handleSubmit(createGroupTransaction)}
+          onSubmit={handleSubmit(onSubmit)}
           className="space-y-4"
         >
           <div className=" flex-col">
@@ -105,16 +100,16 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
           </div>
           <div>
             {currentIsConnectedStatus ? (
-                          <p className="text-xs">
-              <span className="text-red-500">NOTE</span>: By creating a group,
-              you will be charged 0.5 TON from your connected wallet
-            </p>
+              <p className="text-xs">
+                <span className="text-red-500">NOTE</span>: By creating a group,
+                you will be charged 0.5 TON from your connected wallet
+              </p>
             ) : (
               <p className="text-xs text-red-500">
-              You are not connected to a TON wallet. Connect wallet to create group
-            </p>
+                You are not connected to a TON wallet. Connect wallet to create
+                group
+              </p>
             )}
-
           </div>
           <div className="grid grid-cols-2 space-x-4">
             <button
@@ -125,34 +120,25 @@ const CreateGroup: React.FC<CreateProps> = ({ toggleCreate }) => {
               Cancel
             </button>
 
-            {currentIsConnectedStatus ? (
-              <button
-                type="submit"
-                name="submit"
-                id="ton-connect-button"
-                className={`flex items-center justify-center w-full  px-10 py-2 mb-2 font-semibold text-center text-black transition duration-200 ease-in shadow-md rounded-2xl ${
-                  !currentIsConnectedStatus
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-primary"
-                }`}
-              >
-                {/* {isSubmitting ? (
-                  <div className="flex items-center justify-center hover:bg-primary">
-                    Creating...
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center ">
-                    Create
-                  </div>
-                )} */}
-                Create
-              </button>
-            ) : (
-              <div>
-                
-                <TonConnectButton />
-              </div>
-            )}
+            <button
+              type="submit"
+              name="submit"
+              disabled={!currentIsConnectedStatus}
+              id="ton-connect-button"
+              className={`flex items-center justify-center w-full md:w-1/2 px-10 py-2 mb-2 font-semibold text-center text-black transition duration-200 ease-in shadow-md rounded-2xl ${
+                !currentIsConnectedStatus
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-primary"
+              }`}
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center hover:bg-primary">
+                  Creating...
+                </div>
+              ) : (
+                <div className="flex items-center justify-center ">Create</div>
+              )}
+            </button>
           </div>
         </form>
       </div>

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { GroupData } from "../types/groupTypes";
-const PREFIX_API = import.meta.env.VITE_NEXT_APP_API_HOST_PREFIX_LOCAL || "http://localhost:5001";
+const PREFIX_API =
+  import.meta.env.VITE_NEXT_APP_API_HOST_PREFIX_LOCAL ||
+  "http://localhost:5001";
 const endpoint = `${PREFIX_API}/telegram`;
 
 // we have no headers in our requests currently
@@ -18,7 +20,6 @@ type IdType = string;
 
 // create chat(group) interface
 
-
 // get single group service
 
 const getSingleGroup = (id: IdType) => {
@@ -27,16 +28,14 @@ const getSingleGroup = (id: IdType) => {
     url: `${endpoint}/groups/${id}`,
     // withCredentials: true,
     // crossdomain: true,
-    // headers: {
-    //   "Content-Type": "application/json",
-    //   "Access-Control-Allow-Headers": "*",
-    //   "Access-Control-Allow-Origin": "*",
-    //   "Access-Control-Allow-Methods": "*",
-    // },
+    headers: {
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "*",
+    },
   };
   return axios(config);
 };
-
 
 // get all groups request service
 const getGroups = () => {
@@ -46,7 +45,6 @@ const getGroups = () => {
     // withCredentials: true,
     // crossdomain: true,
     // headers: {
-    //   "Content-Type": "application/json",
     //   "Access-Control-Allow-Headers": "*",
     //   "Access-Control-Allow-Origin": "*",
     //   "Access-Control-Allow-Methods": "*",
@@ -54,7 +52,6 @@ const getGroups = () => {
   };
   return axios(config);
 };
-
 
 // create megagroup request service
 const createGroup = (data: DataType) => {
@@ -74,12 +71,22 @@ const createGroup = (data: DataType) => {
   return axios(config);
 };
 
-
 // create chat (group) request service
 const createChat = (data: GroupData) => {
   const config = {
     method: "POST",
     url: `${endpoint}/create-chat`,
+    data: data,
+  };
+  return axios(config);
+};
+
+// add user to chat request service
+// for future use (endpoint is ready)
+const addChatUser = (data: GroupData) => {
+  const config = {
+    method: "POST",
+    url: `${endpoint}/add-user`,
     data: data,
     crossdomain: true,
     withCredentials: true,
@@ -92,25 +99,5 @@ const createChat = (data: GroupData) => {
   };
   return axios(config);
 };
-
-
-// add user to chat request service
-// for future use (endpoint is ready)
-const addChatUser = (data: GroupData) => {
-    const config = {
-      method: "POST",
-      url: `${endpoint}/add-user`,
-      data: data,
-      crossdomain: true,
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "*",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-      },
-    };
-    return axios(config);
-  };
 
 export { getSingleGroup, createGroup, getGroups, createChat, addChatUser };
